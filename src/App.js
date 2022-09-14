@@ -85,7 +85,7 @@ function App() {
         .then(
           function (result) {
             console.log (result.outputs[0].data.concepts)})
-        .catch(error => console.log('error', error));     //Apikey: 3c345d76622b417ab70c8623ce2f6059
+        .catch(error => console.log('error', error));    
    }     
   
 
