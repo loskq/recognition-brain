@@ -33,13 +33,13 @@ function App() {
   // },)
 
   function loadUser(data){
-   setUser({user: {
+   setUser({
       id: data.id,
       name: data.name,
       email: data.email,
       entries: data.entries,
       joined: data.joined
-   }})
+   })
   }
 
   function onInputChange(event){
@@ -73,20 +73,37 @@ function App() {
     });
 
     const requestOptions = {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Key ' + PAT
-        },
-        body: raw
-    };
-        fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
-        .then(response => response.json())
-        .then(
-          function (result) {
-            console.log (result.outputs[0].data.concepts)})
-        .catch(error => console.log('error', error));    
-   }     
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Key ' + PAT
+      },
+      body: raw
+  };
+    fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
+    .then(response => response.json())
+    .then(
+      function(result) {
+        console.log (result.outputs[0].data.concepts)})
+      .then(result => {
+        if (result) {
+          fetch('http://localhost:3000/image', {
+            method: 'PUT',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              id: user.id
+            })
+          })
+            .then(response=> response.json())
+            .then(count => {
+              setUser(Object.assign(user, {entries: count}))
+            })
+          }
+      })
+    .catch(error => console.log('error', error));    
+}     
   
 
   function onRouteChange(route){
@@ -128,6 +145,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;

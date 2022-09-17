@@ -5,7 +5,7 @@ function ImageReco(props) {
 	return(
 		<div className='ma4 mt0'>
 			<p className='f3'>
-				{'This Magic Brain will detect smthin in ur pics. Try it.'}
+				{'This Magic Brain will detect anything in ur pics. Try it.'}
 			</p>
 			<div className='center'>
 				<div className='form center pa4 br3 shadow-1'>

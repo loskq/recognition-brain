@@ -13,7 +13,7 @@ function Signin(props) {
 	}
 
 	const onSubmitSignin = () =>{
-			fetch('http://localhost:5000/Signin', {
+			fetch('http://localhost:5000/signin', {
 				method: 'POST',
 				headers: {
 					'Accept': 'application/json',
